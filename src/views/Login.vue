@@ -24,8 +24,9 @@
         expires_in,
         error
       } = this.$route.query;
+      // console.log("routequery: ", access_token, refresh_token, expires_in, error);
 
-      if (error) {
+      if (error != "null") {
         console.error(error);
       } else if (access_token && refresh_token && expires_in) {
         this.setAccessToken(access_token);
