@@ -61,5 +61,12 @@ export default {
       },
       data: { ...base64 }
     });
-  }
+  },
+
+  getPlaylistFeatures(track_ids) {
+    var feat = request.get("audio-features?ids=" + track_ids.toString(), {
+      json: true
+    });
+    return feat;
+  },
 };

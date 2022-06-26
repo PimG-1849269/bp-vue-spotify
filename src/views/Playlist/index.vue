@@ -13,7 +13,12 @@
         :playlistID="playlistID"
         :ownerID="playlist.owner.id"
       />
-      <tracks-table :tracks="tracks.items" :contextUri="playlist.uri" />
+      <tracks-table 
+        :tracks="tracks.items" 
+        :contextUri="playlist.uri" 
+        :order="shuffleorder"
+        :allfeatures="allfeatures"
+        :selectedfeatures="selectedfeatures"/>
     </div>
   </div>
 </template>
@@ -37,7 +42,42 @@
         userID: null,
         playlistID: null,
         tracks: null,
-        more: null
+        more: null,
+
+        allfeatures: [],
+        selectedfeatures: {},
+        shuffleorder: [],
+
+        features: [
+            "danceability",
+            "energy",
+            "speechiness",
+            "acousticness",
+            "instrumentalness",
+            "liveness",
+            "valence",
+            "key",
+            "loudness",
+            "mode",
+            "tempo",
+            "time_signature",
+            "duration_ms"
+        ],
+        explanations: {
+            "danceability": "How suitable a track is for dancing (%)",
+            "energy": "How intense and active a track is (%)",
+            "speechiness": "The amount of presence of spoken words in the track (%)",
+            "acousticness": "Confidence measure of how acoustic a track is (%)",
+            "instrumentalness": "Confidence measure of how instrumental a track is (= no vocals) (%)",
+            "liveness": "Likelihood of the presece of an audience in the recording (%)",
+            "valence": "Positiveness of the mood of a track (%)",
+            "key": "Key the track is played in",
+            "loudness": "Average number of dB the track is played in",
+            "mode": "Played in Minor or Major",
+            "tempo": "Average BPM of the track",
+            "time_signature": "Number of beats in a bar (3/4 - 7/4)",
+            "duration_ms": "Duration of track in milliseconds",
+        },
       };
     },
 
@@ -76,6 +116,9 @@
             this.tracks.total = response.data.total;
             this.tracks.items.push(...response.data.items);
             this.more = false;
+
+            this.loadFeatures()
+            this.returnOrderToNormal();
           }
         } catch (e) {
           this.notFoundPage(true);
@@ -105,13 +148,25 @@
           userID: this.userID,
           playlistID: this.playlistID
         });
+      }, 
+
+      async loadFeatures() {
+        var tracksIds = this.tracks.items.map((el) => {
+          return el.track.id;
+        });
+        this.allfeatures = (await api.spotify.playlists.getPlaylistFeatures(tracksIds)).data.audio_features;
+      },
+
+      returnOrderToNormal() {
+        this.shuffleorder = [...Array(this.tracks.items.length).keys()];
       }
+
     },
 
     watch: {
       $route() {
         this.init();
-      }
+      },
     },
 
     created() {

@@ -26,69 +26,95 @@
     </div>
 
     <div
-      class="tracks-table__row"
-      v-for="(item, index) in tracks"
-      :key="index"
-      :class="isActiveTrack(item.track)"
-      :data-id="item.track.id"
-    >
-      <div class="tracks-table__cell tracks-table__cell--playback">
-        <track-playback
-          :trackUri="item.track.uri"
-          :tracksUris="tracksUris"
-          :contextUri="contextUri"
-          :offset="index"
-        />
-      </div>
+      class="row_with_features"
+      v-for="(index, indexinorder) in order"
+      :key="indexinorder"
+      @click="visible[index] = !visible[index]; hover[index] = false; $forceUpdate();"
+      v-on:mouseover="showFeatureHover(index)"
+      @mouseleave="hover[index] = false">
 
-      <div class="tracks-table__cell tracks-table__cell--addition">
-        <track-addition
-          :trackID="item.track.id"
-          :isSaved="savedTracks[index]"
-          v-on:updateTrackstatus="onTrackUpdate"
-          v-on:savedTrackRemove="onSavedTrackRemove"
-        />
-      </div>
+      <div
+        class="tracks-table__row"
+        :class="isActiveTrack(tracks[index].track)"
+        :data-id="tracks[index].track.id"
+      >
+        <div class="tracks-table__cell tracks-table__cell--playback">
+          <track-playback
+            :trackUri="tracks[index].track.uri"
+            :tracksUris="tracksUris"
+            :contextUri="contextUri"
+            :offset="index"
+          />
+        </div>
 
-      <div class="tracks-table__cell">
-        {{ item.track.name }}
-        <span v-if="item.track.explicit" class="tracks-table__explicit-label">
-          Explicit
-        </span>
-      </div>
+        <div class="tracks-table__cell tracks-table__cell--addition">
+          <track-addition
+            :trackID="tracks[index].track.id"
+            :isSaved="savedTracks[index]"
+            v-on:updateTrackstatus="onTrackUpdate"
+            v-on:savedTrackRemove="onSavedTrackRemove"
+          />
+        </div>
 
-      <div class="tracks-table__cell">
-        <div>
+        <div class="tracks-table__cell">
+          {{ tracks[index].track.name }}
+          <span v-if="tracks[index].track.explicit" class="tracks-table__explicit-label">
+            Explicit
+          </span>
+        </div>
+
+        <div class="tracks-table__cell">
+          <div>
+            <router-link
+              class="tracks-table__link"
+              v-for="(artist, index) in tracks[index].track.artists"
+              :key="index"
+              :to="{ name: 'artist', params: { id: artist.id } }"
+            >
+              {{ artist.name }}
+              <template v-if="index !== tracks[index].track.artists.length - 1">
+                ,&nbsp;
+              </template>
+            </router-link>
+          </div>
+        </div>
+
+        <div class="tracks-table__cell">
           <router-link
             class="tracks-table__link"
-            v-for="(artist, index) in item.track.artists"
-            :key="index"
-            :to="{ name: 'artist', params: { id: artist.id } }"
+            :to="{ name: 'album', params: { id: tracks[index].track.album.id } }"
           >
-            {{ artist.name }}
-            <template v-if="index !== item.track.artists.length - 1">
-              ,&nbsp;
-            </template>
+            {{ tracks[index].track.album.name }}
           </router-link>
         </div>
+
+        <div class="tracks-table__cell tracks-table__cell--added-at">
+          {{ tracks[index].added_at | moment("MM-DD-YYYY") }}
+        </div>
+
+        <div class="tracks-table__cell tracks-table__cell--duration">
+          {{ tracks[index].track.duration_ms | msToMinutes }}
+        </div>
+
+        <featureHover 
+        v-show="hover[index]" 
+        :id="'featurehover'+index"
+        :featurestoshow="selectedfeatures"
+        :features="allfeatures[index]" 
+        :previous="allfeatures[order[indexinorder-1]]" 
+        ></featureHover>
+
       </div>
 
-      <div class="tracks-table__cell">
-        <router-link
-          class="tracks-table__link"
-          :to="{ name: 'album', params: { id: item.track.album.id } }"
-        >
-          {{ item.track.album.name }}
-        </router-link>
-      </div>
+      <SongDetails 
+        v-show="visible[index]" 
+        :features="allfeatures[index]" 
+        :first="getFeatOfFirst(index)"
+        :previous="allfeatures[order[indexinorder-1]]" 
+        :next="allfeatures[order[indexinorder+1]]"
+        :selectedfeatures="selectedfeatures"
+        ></SongDetails>
 
-      <div class="tracks-table__cell tracks-table__cell--added-at">
-        {{ item.added_at | moment("MM-DD-YYYY") }}
-      </div>
-
-      <div class="tracks-table__cell tracks-table__cell--duration">
-        {{ item.track.duration_ms | msToMinutes }}
-      </div>
     </div>
   </div>
 </template>
@@ -98,13 +124,17 @@
   import { mapGetters } from "vuex";
   import TrackAddition from "@/components/TrackAddition";
   import TrackPlayback from "@/components/TrackPlayback";
+  import SongDetails from "@/components/compare/SongDetails.vue";
+  import FeatureHover from "@/components/tracklist/FeatureHover.vue";
 
   export default {
     name: "tracks-table",
 
     components: {
       TrackAddition,
-      TrackPlayback
+      TrackPlayback,
+      SongDetails,
+      FeatureHover
     },
 
     props: {
@@ -118,6 +148,16 @@
       },
       contextUri: {
         required: false
+      },
+      order: {
+          type: Array
+      },
+      allfeatures: {
+          type: Array,
+      },
+      selectedfeatures: {
+          type: Object,
+          default: {},
       }
     },
 
@@ -125,7 +165,10 @@
       return {
         tracksUris: "",
         tracksIds: "",
-        savedTracks: []
+        savedTracks: [],
+
+        visible: [],
+        hover: [],
       };
     },
 
@@ -199,7 +242,39 @@
           document.querySelectorAll(`[data-id='${id}']`)[0].remove();
         }
         //@todo remove song from playback context
-      }
+      },
+
+      getFeatOfFirst(index) {
+          if (index != 0) {
+              return this.$props.allfeatures[this.order[0]];
+          } else {
+              return undefined;
+          }
+      },
+
+      resizeDataArrays() {
+        this.visible = [];
+        this.hover = [];
+        for (let i = 0; i < this.$props.tracks.length; i++) {
+            this.visible[i] = false;
+            this.hover[i] = false;
+        }
+      },
+
+      showFeatureHover(index) {
+        if (Object.keys(this.$props.selectedfeatures).length > 0 && this.visible[index] == false) { 
+            this.hover[index] = true; 
+            // Get element by id instead of refs, because function onmousemove does not know this.$refs
+            var feathov = document.getElementById('featurehover'+index);
+
+            window.onmousemove = function (e) {
+                var x = e.clientX,
+                    y = e.clientY;
+                feathov.style.top = (y + 20) + 'px';
+                feathov.style.left = (x + 20) + 'px';
+            };
+        }
+      },
     },
 
     watch: {
@@ -207,6 +282,7 @@
         this.fetchTrackUris();
         this.fetchTrackIds();
         this.checkSavedTracks();
+        this.resizeDataArrays();
       }
     }
   };
@@ -297,4 +373,8 @@
 
     .track-playback
       display: none
+
+    .row_with_features:hover
+      cursor: pointer
+
 </style>
