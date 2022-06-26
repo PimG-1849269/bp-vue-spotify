@@ -1,3 +1,7 @@
+# bp-vue-spotify
+Working implementation of the new sorting algorithm presented in my paper to create a proof of concept.
+
+
 # vue-spotify
 Spotify client built with vue.js / vuex.
 
