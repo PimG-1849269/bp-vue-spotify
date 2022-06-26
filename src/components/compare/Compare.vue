@@ -1,6 +1,6 @@
 <template>
 <div v-if="relationExists">
-    <medium>Difference with {{relation}} song</medium>
+    <p>Difference with {{relation}} song</p>
     
     <div class="row border feature-row rounded">
         <div class="col">

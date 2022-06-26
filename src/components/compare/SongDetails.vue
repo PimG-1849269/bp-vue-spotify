@@ -17,7 +17,7 @@
             </Compare>
 
             <div class="features">
-                <medium>Features</medium>
+                <p>Features</p>
                 <div class="row border feature-row rounded">
                     <div class="col">
                         <p class="card-text" :class="selected('danceability')">Danceability: {{this.prettyFeatureValue(features.danceability, "danceability")}}</p>

@@ -31,7 +31,7 @@
       :key="indexinorder"
       @click="visible[index] = !visible[index]; hover[index] = false; $forceUpdate();"
       v-on:mouseover="showFeatureHover(index)"
-      @mouseleave="hover[index] = false">
+      @mouseleave="hover[index] = false; $forceUpdate();">
 
       <div
         class="tracks-table__row"
@@ -97,12 +97,12 @@
         </div>
 
         <featureHover 
-        v-show="hover[index]" 
-        :id="'featurehover'+index"
-        :featurestoshow="selectedfeatures"
-        :features="allfeatures[index]" 
-        :previous="allfeatures[order[indexinorder-1]]" 
-        ></featureHover>
+          v-show="hover[index]" 
+          :id="'featurehover'+index"
+          :featurestoshow="selectedfeatures"
+          :features="allfeatures[index]" 
+          :previous="allfeatures[order[indexinorder-1]]" 
+          ></featureHover>
 
       </div>
 
@@ -273,6 +273,7 @@
                 feathov.style.top = (y + 20) + 'px';
                 feathov.style.left = (x + 20) + 'px';
             };
+            this.$forceUpdate();
         }
       },
     },
