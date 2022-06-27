@@ -14,15 +14,17 @@
         :ownerID="playlist.owner.id"
       />
 
-      <ShuffleBoard 
-        ref="shuffleboard"
-        :allsongs="allsongs"
-        :allfeatures="allfeatures"
-        :features="features"
-        :explanations="explanations"
-        :selectedfeatures="selectedfeatures"
-        @selected-features="updateSelectedFeatures"
-        ></ShuffleBoard>
+      <div class="collapse" id="shuffleboardCollapse">
+        <ShuffleBoard 
+          ref="shuffleboard"
+          :allsongs="allsongs"
+          :allfeatures="allfeatures"
+          :features="features"
+          :explanations="explanations"
+          :selectedfeatures="selectedfeatures"
+          @selected-features="updateSelectedFeatures"
+            ></ShuffleBoard>
+      </div>
 
 
       <tracks-table 
@@ -210,6 +212,12 @@
       $route() {
         this.init();
       },
+
+      'tracks.items'() {
+        if (Object.keys(this.selectedfeatures).length > 0) {
+          this.shuffle()
+        }
+      }
     },
 
     created() {

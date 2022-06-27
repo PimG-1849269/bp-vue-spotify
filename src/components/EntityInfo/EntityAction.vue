@@ -28,6 +28,9 @@
         Unfollow
       </v-button>
     </template>
+    <button class="mybtn" type="button" data-toggle="collapse" data-target="#shuffleboardCollapse" aria-expanded="false" aria-controls="shuffleboardCollapse">
+      Sort playlist
+    </button>
   </div>
 </template>
 
