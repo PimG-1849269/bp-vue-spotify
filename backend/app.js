@@ -2,6 +2,8 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
+var bodyParser = require('body-parser');
+const FileSystem = require("fs");
 
 // HTTPS server
 var fs = require('fs');
@@ -36,6 +38,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
    .use(cors())
+   .use(bodyParser.json());
 
 app.locals.storedState = null;
 
@@ -97,6 +100,35 @@ app.get('/callback', function(req, res) {
         );
     });
   }
+});
+
+app.post('/saveFeatures', function(req, res) {
+  var allfeat = req.body
+  
+  FileSystem.writeFile('features.json', JSON.stringify(allfeat), (error) => {
+      if (error) {
+        res.send("Failed to save features: ", error)
+      }
+  });
+
+  res.send(req.body);
+});
+
+// https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
+app.get('/shuffle', function(req, res) {
+  var shufflefeat = req.query;
+  shufflefeat = JSON.stringify(shufflefeat)
+
+  const { spawn } = require('child_process');
+  const pyProg = spawn('python3', [`${process.cwd()}/weightedshuffle.py`, shufflefeat]);
+
+  pyProg.stdout.on('data', function(data) {
+      res.send(data);
+  });
+  pyProg.stdout.on('error', function(err) {
+    console.log("ERROR DURING SORTING:", err);
+    res.send(err);
+  }); 
 });
 
 // app.get('/refresh_token', function(req, res) {

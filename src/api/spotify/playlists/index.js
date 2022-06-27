@@ -1,4 +1,5 @@
 import request from "./../request";
+import axios from "axios";
 
 export default {
   getCurrentUserPlaylists(limit = 2, offset) {
@@ -63,10 +64,20 @@ export default {
     });
   },
 
-  getPlaylistFeatures(track_ids) {
-    var feat = request.get("audio-features?ids=" + track_ids.toString(), {
+  async getPlaylistFeatures(track_ids) {
+    var feat = await request.get("audio-features?ids=" + track_ids.toString(), {
       json: true
     });
+
+    // Save features to json file, so shuffle can use them
+    await axios.post("https://localhost:4040/saveFeatures",
+      feat.data,
+      { headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
     return feat;
   },
 };

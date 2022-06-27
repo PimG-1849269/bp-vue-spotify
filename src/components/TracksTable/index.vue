@@ -109,7 +109,7 @@
       <SongDetails 
         v-show="visible[index]" 
         :features="allfeatures[index]" 
-        :first="getFeatOfFirst(index)"
+        :first="getFeatOfFirst(indexinorder)"
         :previous="allfeatures[order[indexinorder-1]]" 
         :next="allfeatures[order[indexinorder+1]]"
         :selectedfeatures="selectedfeatures"

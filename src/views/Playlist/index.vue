@@ -28,6 +28,7 @@
   import { mapGetters, mapActions } from "vuex";
   import EntityInfo from "@/components/EntityInfo";
   import TracksTable from "@/components/TracksTable";
+  import axios from "axios";
 
   export default {
     name: "playlist-view",
@@ -159,7 +160,27 @@
 
       returnOrderToNormal() {
         this.shuffleorder = [...Array(this.tracks.items.length).keys()];
-      }
+      },
+
+      updateSelectedFeatures(selected) {
+          // Use JQUERY.extend instead of "= selected" to make copy;
+          // JS works with pass by reference, so otherwise this would automatically update the list without pressing shuffle-button
+          this.selectedfeatures = $.extend(true,{},selected);
+
+          if (Object.keys(this.selectedfeatures).length > 0) {
+            this.shuffle()
+          } else {
+            this.returnOrderToNormal();
+          }
+        },
+
+      async shuffle() {
+          // this.shuffleorder = await service.shuffle(this.selectedfeatures);
+          console.debug("Shuffling on features:", this.selectedfeatures);
+          let res = await axios.get("https://localhost:4040/shuffle", {params: this.selectedfeatures});
+          console.debug("Response of shuffling:", res);
+          this.shuffleorder = res.data;
+        },
 
     },
 
