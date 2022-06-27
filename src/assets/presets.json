@@ -1,0 +1,31 @@
+{
+    "Running": {
+        "tempo": 200,
+        "energy": 100
+    },
+    "Dancing": {
+        "danceability": 100,
+        "valence": 100
+    },
+    "Studying": {
+        "energy": 0,
+        "speechiness": 100,
+        "loudness": 0
+    },
+    "Concentration": {
+        "energy": 0,
+        "instrumentalness": 100,
+        "speechiness": 0,
+        "loudness": 0
+    },
+    "Lonely": {
+        "loudness": 0,
+        "valence": 0,
+        "mode": 0
+    },
+    "Pumped": {
+        "energy": 100,
+        "loudness": -60,
+        "tempo": 200
+    }
+}

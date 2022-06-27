@@ -1010,6 +1010,11 @@
   "resolved" "https://registry.npmjs.org/@vue/web-component-wrapper/-/web-component-wrapper-1.2.0.tgz"
   "version" "1.2.0"
 
+"@vueform/slider@^2.0.10":
+  "integrity" "sha512-FRFKEdICDWWrK7P+rzQiqryFlAnDgy+ZYha9zaFg8Z/9dsSby5DAF4TaaqnUxezkAT22j7O0Ho7Eft+oaViieA=="
+  "resolved" "https://registry.npmjs.org/@vueform/slider/-/slider-2.0.10.tgz"
+  "version" "2.0.10"
+
 "@webassemblyjs/ast@1.7.11":
   "integrity" "sha512-ZEzy4vjvTzScC+SH8RBssQUawpaInUdMTYwYYLh54/s8TuT0gBLuyUnppKsVyZEi876VmmStKsUs28UxPgdvrA=="
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.7.11.tgz"

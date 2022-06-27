@@ -13,6 +13,18 @@
         :playlistID="playlistID"
         :ownerID="playlist.owner.id"
       />
+
+      <ShuffleBoard 
+        ref="shuffleboard"
+        :allsongs="allsongs"
+        :allfeatures="allfeatures"
+        :features="features"
+        :explanations="explanations"
+        :selectedfeatures="selectedfeatures"
+        @selected-features="updateSelectedFeatures"
+        ></ShuffleBoard>
+
+
       <tracks-table 
         :tracks="tracks.items" 
         :contextUri="playlist.uri" 
@@ -25,17 +37,20 @@
 
 <script>
   import api from "@/api";
+  import axios from "axios";
   import { mapGetters, mapActions } from "vuex";
   import EntityInfo from "@/components/EntityInfo";
   import TracksTable from "@/components/TracksTable";
-  import axios from "axios";
+  import ShuffleBoard from "@/components/shuffleboard/ShuffleBoard.vue";
+ 
 
   export default {
     name: "playlist-view",
 
     components: {
       EntityInfo,
-      TracksTable
+      TracksTable,
+      ShuffleBoard
     },
 
     data() {
@@ -85,7 +100,14 @@
     computed: {
       ...mapGetters("playlist", {
         playlist: "getPlaylist"
-      })
+      }),
+
+      allsongs: function() {
+        var tracks = this.tracks.items.map((el) => {
+          return el.track;
+        });
+        return tracks;
+      }
     },
 
     methods: {
