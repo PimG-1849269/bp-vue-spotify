@@ -26,7 +26,6 @@
             ></ShuffleBoard>
       </div>
 
-
       <tracks-table 
         :tracks="tracks.items" 
         :contextUri="playlist.uri" 
@@ -34,6 +33,29 @@
         :allfeatures="allfeatures"
         :selectedfeatures="selectedfeatures"/>
     </div>
+
+    <!-- POPUP WITH EXPLANATIONS OF FEATURES -->
+      <div class="modal fade" id="featureexplanation" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 75%" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">Explanations of features</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="rounded myalert text-white" style="padding: 1%">In this section you can find, for every feature, both the song with the lowest and highest value of the feature in your playlist. Loading songs is required for this to work!</p>
+                <FeatureExplanation 
+                :allsongs="allsongs" 
+                :allfeatures="allfeatures"
+                :features="features"
+                :explanations="explanations"
+                ></FeatureExplanation>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -44,6 +66,7 @@
   import EntityInfo from "@/components/EntityInfo";
   import TracksTable from "@/components/TracksTable";
   import ShuffleBoard from "@/components/shuffleboard/ShuffleBoard.vue";
+  import FeatureExplanation from "@/components/paramdetails/FeatureExplanation.vue";
  
 
   export default {
@@ -52,7 +75,8 @@
     components: {
       EntityInfo,
       TracksTable,
-      ShuffleBoard
+      ShuffleBoard,
+      FeatureExplanation
     },
 
     data() {
@@ -227,3 +251,13 @@
 </script>
 
 <style scoped lang="sass"></style>
+<style>
+  .modal-content {
+    background-color: var(--dark) !important;
+    color: white !important;
+    font-weight: 600 !important;
+  }
+  .modal-header {
+    border-color: #1db954 !important;
+  }
+</style>

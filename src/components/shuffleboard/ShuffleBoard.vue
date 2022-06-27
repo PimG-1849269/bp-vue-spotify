@@ -1,10 +1,12 @@
 <template>
     <div class="shuffleboard rounded text-white bg-dark">
         <!-- General info about shuffleboard -->
-        <div class="row alert myalert generalinfo" align="center">
+        <div class="row alert myalert generalinfo justify-content-center" align="center">
             Using this board, you can alter the order of the playlist. By choosing features you find important and exclaiming if they need to be as high, or as low, as possible; a new order will be sought to satisfy your needs. 
             <!-- <br/> -->
             Features that are not specified, will not be taken in consideration when searching for a new order.
+
+            <a class="mybtn active" align="center" data-toggle="modal" data-target="#featureexplanation" data-backdrop="false">Explanation of features</a>
         </div>
 
         <div class="row" align="center">
