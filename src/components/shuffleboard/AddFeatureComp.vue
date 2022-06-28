@@ -30,7 +30,8 @@
     <div class="col align-self-center">
         <p>{{prettyFeatureValue(selectedvalue, selectedfeature)}}</p>
 
-        <Slider
+        <!-- THIS SLIDER SUDDENLY STOPPED WORKING -->
+        <!-- <Slider
             class="slider-blue"
             v-model="selectedvalue"
             showTooltip="drag"
@@ -38,7 +39,18 @@
             :min="minSlider"
             :max="maxSlider"
             :format="formatSlider">
-        </Slider>
+        </Slider> -->
+
+        <vue-slider
+            v-model="selectedvalue"
+            :interval="stepSlider"
+            :min="minSlider"
+            :max="maxSlider"
+            tooltip="false"
+            :disabled="selectedfeature == null"
+            :process-style="{ background: '#1db954' }"
+            :bg-style="{ background: '#737575'}"
+            ></vue-slider>
     </div>
 
     <!-- Add button -->
@@ -50,8 +62,8 @@
 
 <script>
 // Slider from https://github.com/vueform/slider#using-with-vue-3
-import "@vueform/slider/themes/default.css";
-import Slider from "@vueform/slider";
+// import "@vueform/slider/themes/default.css";
+// import Slider from "@vueform/slider";
 import { prettyFeatureValue as pfv, prettyFeatureName as pfn} from "../../prettyFunctions.js";
 
 export default {
@@ -164,7 +176,7 @@ export default {
     },
 
     components: {
-        Slider,
+        // Slider,
     }
 }
 </script>

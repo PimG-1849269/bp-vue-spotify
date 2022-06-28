@@ -143,6 +143,7 @@ export default {
         addFeature(feat, val) {
             this.chosen[feat] = val;
             this.throwError("");
+            this.$forceUpdate();
         },
         delFeature(feat) {
             delete this.chosen[feat];

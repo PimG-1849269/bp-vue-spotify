@@ -2,12 +2,14 @@
 <div>
     <div class="row" align="center">
     
+    <div class="col-6 align-self-center">
     <AddFeatureComp
         :features="features"
         :explanations="explanations"
         @added-feature="addFeature"
         @error="throwError">
     </AddFeatureComp>
+    </div>
 
     <!-- List of added features -->
     <div class="col align-self-center">
@@ -64,6 +66,7 @@ export default {
         addFeature(feat, val) {
             this.addedfeatures[feat] = val;
             this.throwError("");
+            this.$forceUpdate();
         },
 
         delFeature(feat) {

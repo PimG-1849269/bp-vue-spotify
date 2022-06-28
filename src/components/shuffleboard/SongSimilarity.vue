@@ -50,7 +50,7 @@
 
     <!-- Add option to add other features -->
     <div class="collapse" id="addFeatureRow">
-    <div class="row border border-secondary rounded addfeature" align="center" >
+    <div class="border border-secondary rounded addfeature" align="center" >
         <AddFeatureComp
             :features="features"
             :explanations="explanations"
@@ -126,6 +126,7 @@ export default {
         addFeature(feat, val) {
             this.selectedfeatures[feat] = val;
             this.throwError("");
+            this.$forceUpdate();
         },
 
         delFeature(feat) {
