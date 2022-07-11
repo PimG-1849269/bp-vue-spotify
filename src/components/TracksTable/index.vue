@@ -116,6 +116,18 @@
         ></SongDetails>
 
     </div>
+
+    <!-- <div class="row">
+    <div class="col"> -->
+      <div class="mychart">
+      <apexchart 
+        type="radar"
+        :series="spiderchartseries"
+        :options="spiderchartoptions" 
+        ></apexchart>
+      </div>
+    <!-- </div>
+    </div> -->
   </div>
 </template>
 
@@ -126,6 +138,8 @@
   import TrackPlayback from "@/components/TrackPlayback";
   import SongDetails from "@/components/compare/SongDetails.vue";
   import FeatureHover from "@/components/tracklist/FeatureHover.vue";
+  import { prettyNormalizedValue as pnv } from "../../prettyFunctions.js";
+  import { white } from "color-name";
 
   export default {
     name: "tracks-table",
@@ -177,7 +191,53 @@
         user: "user/getProfile",
         playback: "player/getPlayback",
         context: "player/getPlaybackContext"
-      })
+      }),
+
+      spiderchartseries: function () {
+            return [{
+              name: "Average of playlist",
+              data: this.getAverageDataSeries()
+            }];
+        },
+        spiderchartoptions: function () {
+            return {
+                xaxis: {
+                    categories: [
+                        "Danceability",
+                        "Energy",
+                        "Acousticness",
+                        "Instrumentalness",
+                        "Liveness",
+                        "Valence",
+                        "Key",
+                        "Loudness",
+                        "Speechiness",
+                        "Mode",
+                        "Tempo",
+                        "Time signature",
+                        "Duration"
+                    ],
+                }, 
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 1,
+                },
+                legend: {
+                    showForSingleSeries: true,
+                    labels: {colors: white}
+                },
+                stroke: {
+                width: 2
+                },
+                fill: {
+                opacity: 0.1
+                },
+                markers: {
+                size: 0
+                },
+            }
+        },
     },
 
     methods: {
@@ -276,6 +336,39 @@
             this.$forceUpdate();
         }
       },
+
+      getAverageDataSeries() {
+          var series = [];
+          
+          // Create series
+          series.push(pnv(this.calcAverage("danceability"), "danceability"));
+          series.push(pnv(this.calcAverage("energy"), "energy"));
+          series.push(pnv(this.calcAverage("acousticness"), "acousticness"));
+          series.push(pnv(this.calcAverage("instrumentalness"), "instrumentalness"));
+          series.push(pnv(this.calcAverage("liveness"), "liveness"));
+          series.push(pnv(this.calcAverage("valence"), "valence"));
+          series.push(pnv(this.calcAverage("key"), "key"));
+          series.push(pnv(this.calcAverage("loudness"), "loudness"));
+          series.push(pnv(this.calcAverage("speechiness"), "speechiness"));
+          series.push(pnv(this.calcAverage("mode"), "mode"));
+          series.push(pnv(this.calcAverage("tempo"), "tempo"));
+          series.push(pnv(this.calcAverage("time_signature"), "time_signature"));
+          series.push(pnv(this.calcAverage("duration_ms"), "duration_ms"));
+
+          return series;
+      },
+
+      calcAverage(feat) {
+        var sum = 0;
+
+        this.$props.allfeatures.forEach(tr => {
+          sum += tr[feat];
+        });
+
+        return sum / (this.$props.tracks.length);
+      }
+
+      
     },
 
     watch: {
@@ -378,4 +471,10 @@
     .row_with_features:hover
       cursor: pointer
 
+</style>
+<style>
+  .mychart {
+    width: 50%;
+    margin: auto;
+  }
 </style>
