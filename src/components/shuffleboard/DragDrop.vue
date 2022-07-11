@@ -60,7 +60,7 @@
         </div>
 
         <!-- Tweakable -->
-        <div class="col align-self-center" v-if="Object.keys(selectedfeatures).length != 0">
+        <div class="col align-self-center">
             <div v-for="(value, feat) in selectedfeatures">
                 <i class="fa fa-times text-danger del-icon" v-on:click="delFeature(feat)"></i>
                 {{ prettyFeatureName(feat) }}: {{ prettyFeatureValue(value, feat) }}
