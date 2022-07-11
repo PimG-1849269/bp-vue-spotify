@@ -14,6 +14,7 @@
         :ownerID="playlist.owner.id"
       />
 
+      <div id="collapse-boards">
       <div class="collapse" id="shuffleboardCollapse">
         <ShuffleBoard 
           ref="shuffleboard"
@@ -24,6 +25,15 @@
           :selectedfeatures="selectedfeatures"
           @selected-features="updateSelectedFeatures"
             ></ShuffleBoard>
+      </div>
+      <div class="collapse" id="quicksortCollapse">
+        <QuicksortBoard
+          ref="quicksortboard"
+          :features="features"
+          :explanations="explanations"
+          :selectedfeatures="selectedfeatures"
+          @selected-features="updateSelectedFeatures"></QuicksortBoard>
+      </div>
       </div>
 
       <tracks-table 
@@ -66,6 +76,7 @@
   import EntityInfo from "@/components/EntityInfo";
   import TracksTable from "@/components/TracksTable";
   import ShuffleBoard from "@/components/shuffleboard/ShuffleBoard.vue";
+  import QuicksortBoard from "@/components/shuffleboard/QuicksortBoard.vue";
   import FeatureExplanation from "@/components/paramdetails/FeatureExplanation.vue";
  
 
@@ -73,11 +84,12 @@
     name: "playlist-view",
 
     components: {
-      EntityInfo,
-      TracksTable,
-      ShuffleBoard,
-      FeatureExplanation
-    },
+    EntityInfo,
+    TracksTable,
+    ShuffleBoard,
+    FeatureExplanation,
+    QuicksortBoard
+},
 
     data() {
       return {
@@ -134,6 +146,13 @@
         });
         return tracks;
       }
+    },
+
+    mounted() {
+      var $myGroup = $('#collapse-boards');
+      $myGroup.on('show.bs.collapse','.collapse', function() {
+          $myGroup.find('.collapse').collapse('hide');
+      });
     },
 
     methods: {

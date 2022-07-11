@@ -17,7 +17,7 @@
                     <a class="nav-item nav-link active" id="nav-preset-tab" data-toggle="tab" href="#nav-preset" role="tab" aria-controls="nav-preset" aria-selected="true">Presets</a>
                     <a class="nav-item nav-link" id="nav-custom-tab" data-toggle="tab" href="#nav-custom" role="tab" aria-controls="nav-custom" aria-selected="false">Custom</a>
                     <a class="nav-item nav-link" id="nav-songsimilarity-tab" data-toggle="tab" href="#nav-songsimilarity" role="tab" aria-controls="nav-songsimilarity" aria-selected="false">Song similarity</a>
-                    <a class="nav-item nav-link" id="nav-dragdrop-tab" data-toggle="tab" href="#nav-dragdrop" role="tab" aria-controls="nav-dragdrop" aria-selected="false">Drag&drop</a>
+                    <!-- <a class="nav-item nav-link" id="nav-dragdrop-tab" data-toggle="tab" href="#nav-dragdrop" role="tab" aria-controls="nav-dragdrop" aria-selected="false">Drag&drop</a> -->
                 </div>
                 <!-- Tab content -->
                 <div class="tab-content" id="nav-tabContent">
@@ -51,14 +51,14 @@
                         </SongSimilarity>
                     </div>
                     <!-- Drag&drop car mode -->
-                    <div class="tab-pane fade" id="nav-dragdrop" role="tabpanel" aria-labelledby="nav-dragdrop-tab">
+                    <!-- <div class="tab-pane fade" id="nav-dragdrop" role="tabpanel" aria-labelledby="nav-dragdrop-tab">
                         <DragDrop
                             ref="dragdrop"
                             @selected-features="broadcastSelectedFeatures"
                             :features="features"
                             :explanations="explanations">
                         </DragDrop>
-                    </div>
+                    </div> -->
                 </div>
             </nav></div>
 
@@ -150,7 +150,7 @@ export default {
             this.$refs.presets.emptyPresets();
             this.$refs.featureselection.emptyFeatures();
             this.$refs.songsimilarity.emptyFeatures();
-            this.$refs.dragdrop.emptyFeatures();
+            // this.$refs.dragdrop.emptyFeatures();
         },
 
         prettyFeatureValue(val, feat) {
