@@ -20,23 +20,62 @@
                 <p>Features</p>
                 <div class="row border feature-row rounded">
                     <div class="col">
-                        <p class="card-text" :class="selected('danceability')">Danceability: {{this.prettyFeatureValue(features.danceability, "danceability")}}</p>
-                        <p class="card-text" :class="selected('energy')">Energy: {{this.prettyFeatureValue(features.energy, "energy")}}</p>
-                        <p class="card-text" :class="selected('key')">Key: {{this.prettyFeatureValue(features.key, "key")}}</p>
-                        <p class="card-text" :class="selected('loudness')">Loudness: {{this.prettyFeatureValue(features.loudness, "loudness")}}</p>
+                        <div class="row card-text" :class="selected('danceability')">
+                            <div class="col-4">Danceability: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.danceability, "danceability")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('energy')">
+                            <div class="col-4">Energy: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.energy, "energy")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('key')">
+                            <div class="col-4">Key: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.key, "key")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('loudness')">
+                            <div class="col-4">Loudness: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.loudness, "loudness")}}</div></div></div>
+                        </div>
                     </div>
                     <div class="col">
-                        <p class="card-text" :class="selected('mode')">Mode: {{this.prettyFeatureValue(features.mode, "mode")}}</p>
-                        <p class="card-text" :class="selected('speechiness')">Speechiness: {{this.prettyFeatureValue(features.speechiness, "speechiness")}}</p>
-                        <p class="card-text" :class="selected('acousticness')">Acousticness: {{this.prettyFeatureValue(features.acousticness, "acousticness")}}</p>
-                        <p class="card-text" :class="selected('instrumentalness')">Instrumentalness: {{this.prettyFeatureValue(features.instrumentalness, "instrumentalness")}}</p>
+                        <div class="row card-text" :class="selected('mode')">
+                            <div class="col-4">Mode: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.mode, "mode")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('speechiness')">
+                            <div class="col-4">Speechiness: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.speechiness, "speechiness")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('acousticness')">
+                            <div class="col-4">Acousticness: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.acousticness, "acousticness")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('instrumentalness')">
+                            <div class="col-4">Instrumentalness: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.instrumentalness, "instrumentalness")}}</div></div></div>
+                        </div>
                     </div>
                     <div class="col">
-                        <p class="card-text" :class="selected('liveness')">Liveness: {{this.prettyFeatureValue(features.liveness, "liveness")}}</p>
-                        <p class="card-text" :class="selected('valence')">Valence: {{this.prettyFeatureValue(features.valence, "valence")}}</p>
-                        <p class="card-text" :class="selected('tempo')">Tempo: {{this.prettyFeatureValue(features.tempo, "tempo")}}</p>
-                        <p class="card-text" :class="selected('duration_ms')">Duration: {{this.prettyFeatureValue(features.duration_ms, "duration_ms")}}</p>
-                        <p class="card-text" :class="selected('time_signature')">Time signature: {{this.prettyFeatureValue(features.time_signature, "time_signature")}}</p>
+                        <div class="row card-text" :class="selected('liveness')">
+                            <div class="col-4">Liveness: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.liveness, "liveness")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('valence')">
+                            <div class="col-4">Valence: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.valence, "valence")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('tempo')">
+                            <div class="col-4">Tempo: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.tempo, "tempo")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('duration_ms')">
+                            <div class="col-4">Duration: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.duration_ms, "duration_ms")}}</div></div></div>
+                        </div>
+                        <div class="row card-text" :class="selected('time_signature')">
+                            <div class="col-4">Time signature: </div>
+                            <div class="col"><div class="row"><div class="col">{{prettyFeatureValue(features.time_signature, "time_signature")}}</div></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
