@@ -69,7 +69,7 @@
 
         <!-- Shuffle button -->
         <div class="col-2 align-self-center">
-            <a v-on:click="broadcastSelectedFeatures" class="mybtn active">Shuffle</a>
+            <a v-on:click="broadcastSelectedFeatures" class="mybtn active">Sort</a>
         </div>
     </div>
 
