@@ -1,6 +1,6 @@
 <template>
     <div class="row card-text">
-        <div class="col-4">{{feature}}: </div>
+        <div class="col-6">{{feature}}: </div>
         <div class="col">
             <div class="row">
             <div class="col-2" v-if="iconNeeded">

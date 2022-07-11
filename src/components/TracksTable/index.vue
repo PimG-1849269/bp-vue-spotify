@@ -29,7 +29,6 @@
       class="row_with_features"
       v-for="(index, indexinorder) in order"
       :key="indexinorder"
-      @click="visible[index] = !visible[index]; hover[index] = false; $forceUpdate();"
       v-on:mouseover="showFeatureHover(index)"
       @mouseleave="hover[index] = false; $forceUpdate();">
 
@@ -37,6 +36,7 @@
         class="tracks-table__row"
         :class="isActiveTrack(tracks[index].track)"
         :data-id="tracks[index].track.id"
+        @click="visible[index] = !visible[index]; hover[index] = false; $forceUpdate();"
       >
         <div class="tracks-table__cell tracks-table__cell--playback">
           <track-playback

@@ -1,6 +1,6 @@
 <template>
 <div v-if="relationExists">
-    <p>Difference with {{relation}} song</p>
+    <!-- <p>Difference with {{relation}} song</p> -->
     
     <div class="row border feature-row rounded">
         <div class="col">
@@ -8,14 +8,20 @@
             <FeatureComp feature="Energy" :value="calcDiff('energy')" :class="selected('energy')"></FeatureComp>
             <FeatureComp feature="Key" :value="calcDiff('key')" :class="selected('key')"></FeatureComp>
             <FeatureComp feature="Loudness" :value="calcDiff('loudness')" :class="selected('loudness')"></FeatureComp>
+
+            <FeatureComp feature="Mode" :value="calcDiff('mode')" :class="selected('mode')"></FeatureComp>
+            <FeatureComp feature="Speechiness" :value="calcDiff('speechiness')" :class="selected('speechiness')"></FeatureComp>
+            <FeatureComp feature="Acousticness" :value="calcDiff('acousticness')" :class="selected('acousticness')"></FeatureComp>
         </div>
-        <div class="col">
+        <!-- <div class="col">
             <FeatureComp feature="Mode" :value="calcDiff('mode')" :class="selected('mode')"></FeatureComp>
             <FeatureComp feature="Speechiness" :value="calcDiff('speechiness')" :class="selected('speechiness')"></FeatureComp>
             <FeatureComp feature="Acousticness" :value="calcDiff('acousticness')" :class="selected('acousticness')"></FeatureComp>
             <FeatureComp feature="Instrumentalness" :value="calcDiff('instrumentalness')" :class="selected('instrumentalness')"></FeatureComp>
-        </div>
+        </div> -->
         <div class="col">
+            <FeatureComp feature="Instrumentalness" :value="calcDiff('instrumentalness')" :class="selected('instrumentalness')"></FeatureComp>
+
             <FeatureComp feature="Liveness" :value="calcDiff('liveness')" :class="selected('liveness')"></FeatureComp>
             <FeatureComp feature="Valence" :value="calcDiff('valence')" :class="selected('valence')"></FeatureComp>
             <FeatureComp feature="Tempo" :value="calcDiff('tempo')" :class="selected('tempo')"></FeatureComp>

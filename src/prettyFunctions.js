@@ -102,7 +102,65 @@ function prettyFeatureName(feat, first_up = true) {
     return name;
 };
 
-export {prettyFeatureValue, prettyFeatureDiff, prettyFeatureName};
+// BASED ON BENEFICIARYNORMALIZEDVALUE IN BACKEND/WEIGHTEDSHUFFLE.PY
+function prettyNormalizedValue(songval, feature) {
+    var val;
+    var max;
+
+    if (feature == "key"){
+        val = songval;
+
+        // If key unknown, act as if good
+        if (val == -1){
+            val = 5;
+        }
+        max = 11;
+
+    } else if (feature == "loudness") {
+        val = songval;
+        if (val < -60) {
+            val = -60;
+        } else if (val > 0) {
+            val = 0;
+        }
+        max = -60;
+    } else if (feature == "mode") {
+        // Mode is boolean, so it's either 0 or 1
+        val = songval;
+        max = 1;
+    } else if (feature == "tempo") {
+        // Cap on tempo (bpm)
+        val = songval;
+        if (val < 20){
+            val = 20;
+        } else if (val > 250){
+            val = 250;
+        }
+        max = 250;
+    } else if (feature == "time_signature") {
+        // Value lies between 3 and 7
+        val = songval;
+        max = 7;
+    } else if (feature == "duration_ms") {
+        // Cap on duration on 10min.
+        val = songval;
+        if (val < 0){
+            val = 0;
+        } else if (val > 600000){
+            val = 600000;
+        }
+        max = 600000;
+    }
+    // Procentual value
+    else {
+        val = songval * 100
+        max = 100;
+    }
+    // return normalized value (percentage)
+    return (val / max);
+};
+
+export {prettyFeatureValue, prettyFeatureDiff, prettyFeatureName, prettyNormalizedValue};
 
 // Milliseconds to min:sec
 // https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
