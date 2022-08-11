@@ -15,6 +15,7 @@
       />
 
       <div id="collapse-boards">
+      <div id="shuffleboardCollapse-over">
       <div class="collapse" id="shuffleboardCollapse">
         <ShuffleBoard 
           ref="shuffleboard"
@@ -26,6 +27,8 @@
           @selected-features="updateSelectedFeatures"
             ></ShuffleBoard>
       </div>
+      </div>
+      <div id="quicksortCollapse-over">
       <div class="collapse" id="quicksortCollapse">
         <QuicksortBoard
           ref="quicksortboard"
@@ -33,6 +36,7 @@
           :explanations="explanations"
           :selectedfeatures="selectedfeatures"
           @selected-features="updateSelectedFeatures"></QuicksortBoard>
+      </div>
       </div>
       </div>
 
@@ -150,8 +154,13 @@
 
     mounted() {
       var $myGroup = $('#collapse-boards');
-      $myGroup.on('show.bs.collapse','.collapse', function() {
-          $myGroup.find('.collapse').collapse('hide');
+      
+      $myGroup.find('#quicksortCollapse-over').on('show.bs.collapse','.collapse', function() {
+          $myGroup.find('#shuffleboardCollapse.collapse').collapse('hide');
+      });
+
+      $myGroup.find('#shuffleboardCollapse-over').on('show.bs.collapse','.collapse', function() {
+          $myGroup.find('#quicksortCollapse.collapse').collapse('hide');
       });
     },
 
