@@ -160,7 +160,13 @@ export default {
                 for (var j in songfeatures) {
                     if (this.$props.features.includes(j)) {
                         if (this.showall) {
-                            this.selectedfeatures[j] = songfeatures[j];
+                            const nonprocents = ["key", "mode", "loudness", "tempo", "time_signature", "duration_ms"];
+                            // Just add nonprocentual values
+                            if (nonprocents.includes(j)) {
+                                this.selectedfeatures[j] = songfeatures[j];
+                            } else {
+                                this.selectedfeatures[j] = Math.round(songfeatures[j]*100);
+                            }
                         } else {
                             // nonrocentual
                             if (j == "key" || j == "mode") {

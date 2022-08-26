@@ -61,7 +61,7 @@ def getNormalisedBeneficiaryValue(feature, idealval, songval):
 
     # Procentual value
     else:
-        val = songval * 100
+        val = songval
         diff_to_val = abs(idealval - val)
         max_diff = 100
     
@@ -75,7 +75,12 @@ def main():
     # shufflefeat = {
     #     "energy": 0.851, 
     #     "speechiness": 0.0364, 
-    #     "liveness": 0.107
+    #     "liveness": 0.107,
+    #     "loudness": -5.307,
+    #     "duration_ms": 292133,
+    #     "time_signature": 4,
+    #     "mode": 1,
+    #     "key": 0
     # }
     chosen_feat = shufflefeat.keys()
 
