@@ -224,6 +224,8 @@ export default {
                     this.selectedfeatures[feat] = 20
                 }
             }
+
+            this.throwError("");
         },
 
         addFeature(feat, val) {
