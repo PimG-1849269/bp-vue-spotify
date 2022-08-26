@@ -61,7 +61,7 @@ def getNormalisedBeneficiaryValue(feature, idealval, songval):
 
     # Procentual value
     else:
-        val = songval
+        val = songval * 100
         diff_to_val = abs(idealval - val)
         max_diff = 100
     
