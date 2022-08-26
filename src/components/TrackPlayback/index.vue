@@ -4,11 +4,11 @@
       class="track-playback__button track-playback__button--sound-on icon-sound-on"
     ></button>
     <button
-      @click="play"
+      @click.stop="play"
       class="track-playback__button track-playback__button--play icon-play-circle"
     ></button>
     <button
-      @click="pause"
+      @click.stop="pause"
       class="track-playback__button track-playback__button--pause icon-pause-circle"
     ></button>
   </div>
