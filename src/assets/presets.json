@@ -10,22 +10,22 @@
     "Studying": {
         "energy": 0,
         "speechiness": 100,
-        "loudness": 0
+        "loudness": -30
     },
     "Concentration": {
         "energy": 0,
         "instrumentalness": 100,
         "speechiness": 0,
-        "loudness": 0
+        "loudness": -30
     },
     "Lonely": {
-        "loudness": 0,
+        "loudness": -30,
         "valence": 0,
         "mode": 0
     },
     "Pumped": {
         "energy": 100,
-        "loudness": -60,
+        "loudness": 0,
         "tempo": 200
     }
 }
